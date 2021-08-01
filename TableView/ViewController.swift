@@ -9,11 +9,54 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    
+    let names = [
+        "Anik",
+        "Mohammed",
+        "Noor",
+        "Jamal",
+        "Joy"
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        tableView.delegate = self
+        tableView.dataSource = self
+
     }
 
 
 }
+
+//for cell
+extension ViewController : UITableViewDelegate {
+    
+    //click to cell item
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(names[indexPath.row])
+    }
+}
+
+
+
+extension ViewController : UITableViewDataSource {
+    
+    //count items
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return names.count
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)
+        
+        cell.textLabel?.text = names[indexPath.row]
+        return cell
+    
+    }
+}
+
 
